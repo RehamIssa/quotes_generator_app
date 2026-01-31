@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
+import 'package:quotes_generator_app/features/home/presentation/views/favorite_view.dart';
 
 class ViewFavoriteQuotesButton extends StatelessWidget {
   const ViewFavoriteQuotesButton({super.key});
@@ -8,7 +9,11 @@ class ViewFavoriteQuotesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(builder: (context) => const FavoriteView()),
+        );
+      },
       child: Column(
         children: [
           Padding(
