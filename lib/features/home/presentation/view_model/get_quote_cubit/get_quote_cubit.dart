@@ -13,8 +13,8 @@ class GetQuoteCubit extends Cubit<GetQuoteState> {
       (failure) {
         emit(GetQuoteFailure(errorMessage: failure.errorMessage));
       },
-      (quotesList) {
-        emit(GetQuoteSuccess(quotesList: quotesList));
+      (quote) {
+        emit(GetQuoteSuccess(quote: quote));
       },
     );
   }

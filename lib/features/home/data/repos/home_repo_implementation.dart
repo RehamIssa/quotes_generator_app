@@ -11,18 +11,16 @@ class HomeRepoImplementation implements HomeRepo {
 
   HomeRepoImplementation({required this.apiServices});
   @override
-  Future<Either<Failure, List<QuoteModel>>> getRandomQuote() async {
+  Future<Either<Failure, QuoteModel>> getRandomQuote() async {
     try {
       var data = await apiServices.get(Endpoints.getRandomQuotes);
-      List<QuoteModel> quotesList = [];
-      for (var quote in data['content']) {
-        quotesList.add(QuoteModel.fromJson(quote));
-      }
-      return Right(quotesList);
+      QuoteModel quoteModel = QuoteModel.fromJson(data);
+      return Right(quoteModel);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
+
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }

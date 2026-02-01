@@ -7,9 +7,9 @@ class GetQuoteInitial extends GetQuoteState {}
 class GetQuoteLoading extends GetQuoteState {}
 
 class GetQuoteSuccess extends GetQuoteState {
-  final List<QuoteModel> quotesList;
+  final QuoteModel quote;
 
-  GetQuoteSuccess({required this.quotesList});
+  GetQuoteSuccess({required this.quote});
 }
 
 class GetQuoteFailure extends GetQuoteState {

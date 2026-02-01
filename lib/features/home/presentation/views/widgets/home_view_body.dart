@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
+import 'package:quotes_generator_app/features/home/data/models/quote_model.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_cubit/get_quote_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_state.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/favorite_quotes_button.dart';
@@ -26,27 +27,6 @@ class HomeViewBody extends StatelessWidget {
           children: [
             const ViewFavoriteQuotesButton(),
             const Gap(10),
-            SizedBox(
-              height: 48,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: ColorStyles.primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(6),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  BlocProvider.of<GetQuoteCubit>(context).getRandomQuote();
-                },
-                child: Text(
-                  'Generate Another Quote',
-                  style: FontStyles.fontStyle20.copyWith(color: Colors.white),
-                ),
-              ),
-            ),
-            Gap(20),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -63,16 +43,15 @@ class HomeViewBody extends StatelessWidget {
                     : state is GetQuoteSuccess
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            // '“All I required to be happy was friendship and people I could admire.”',
-                            '“${state.quotesList[0].quoteText}',
+                            '“${state.quote.quoteText}',
                             style: FontStyles.fontStyle26,
                             textAlign: TextAlign.justify,
                           ),
                           Text(
-                            // 'Christian Dior',
-                            state.quotesList[0].author,
+                            state.quote.author,
                             style: FontStyles.fontStyle22,
                           ),
                           const Gap(20),
@@ -139,3 +118,4 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 }
+

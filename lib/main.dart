@@ -21,7 +21,7 @@ class QuotesGeneratorApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetQuoteCubit(
             HomeRepoImplementation(apiServices: ApiServices(Dio())),
-          ),
+          )..getRandomQuote(),
         ),
       ],
       child: MaterialApp(
