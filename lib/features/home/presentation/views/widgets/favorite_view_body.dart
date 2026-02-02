@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/back_to_home_view_button.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/custom_text_field.dart';
-import 'package:quotes_generator_app/features/home/presentation/views/widgets/favorite_quote_card.dart';
+import 'package:quotes_generator_app/features/home/presentation/views/widgets/favorite_quotes_cards_list_view.dart';
 
 class FavoriteViewBody extends StatelessWidget {
   const FavoriteViewBody({super.key});
@@ -18,7 +18,7 @@ class FavoriteViewBody extends StatelessWidget {
           const Gap(10),
           CustomTextField(),
           const Gap(10),
-          const FavoriteQuoteCard(),
+          Expanded(child: const FavoriteQuotesCardsListView()),
         ],
       ),
     );

@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
-import 'package:quotes_generator_app/features/home/data/models/quote_model.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_cubit/get_quote_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_state.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/favorite_quotes_button.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
-
+  final bool emptyIcon = true;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetQuoteCubit, GetQuoteState>(
@@ -100,7 +100,12 @@ class HomeViewBody extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      BlocProvider.of<FavoriteQuotesCubit>(
+                                        context,
+                                      ).addQuote(state.quote);
+
+                                    },
                                     icon: Icon(Icons.favorite_border_rounded),
                                   ),
                                 ),
@@ -118,4 +123,3 @@ class HomeViewBody extends StatelessWidget {
     );
   }
 }
-

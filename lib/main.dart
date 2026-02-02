@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes_generator_app/core/utils/api_services.dart';
 import 'package:quotes_generator_app/features/home/data/repos/home_repo_implementation.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_cubit/get_quote_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/home_view.dart';
 
@@ -23,6 +24,7 @@ class QuotesGeneratorApp extends StatelessWidget {
             HomeRepoImplementation(apiServices: ApiServices(Dio())),
           )..getRandomQuote(),
         ),
+        BlocProvider(create: (context) => FavoriteQuotesCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

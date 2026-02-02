@@ -3,12 +3,14 @@ import 'package:gap/gap.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
 
-
 class FavoriteQuoteCard extends StatelessWidget {
   const FavoriteQuoteCard({
     super.key,
+    required this.quoteText,
+    required this.author,
   });
-
+  final String quoteText;
+  final String author;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +23,11 @@ class FavoriteQuoteCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            '“All I required to be happy was friendship and people I could admire.”',
+            '“$quoteText”',
             style: FontStyles.fontStyle26,
             textAlign: TextAlign.justify,
           ),
-          Text('Christian Dior', style: FontStyles.fontStyle22),
+          Text(author, style: FontStyles.fontStyle22),
           const Gap(20),
           SizedBox(
             height: 48,
@@ -40,11 +42,8 @@ class FavoriteQuoteCard extends StatelessWidget {
               style: IconButton.styleFrom(
                 iconSize: 32,
                 foregroundColor: ColorStyles.primaryColor,
-                side: BorderSide(
-                  width: 2.0,
-                  color: ColorStyles.primaryColor,
-                ),
-    
+                side: BorderSide(width: 2.0, color: ColorStyles.primaryColor),
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(6),
