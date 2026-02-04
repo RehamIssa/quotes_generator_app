@@ -1,9 +1,11 @@
 class FavoriteQuotesState {}
 
-class FavoriteQuotesInitial extends FavoriteQuotesState {}
+class FavoriteQuotesInitialState extends FavoriteQuotesState {}
 
-class FavoriteQuotesLength extends FavoriteQuotesState {}
+class FavoriteQuotesLengthState extends FavoriteQuotesState {}
 
-class AddQuote extends FavoriteQuotesState {}
+class AddQuoteState extends FavoriteQuotesState {}
 
-class RemoveQuote extends FavoriteQuotesState {}
+class RemoveQuoteState extends FavoriteQuotesState {}
+
+class SearchedQuoteState extends FavoriteQuotesState {}

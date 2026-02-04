@@ -44,10 +44,13 @@ class HomeViewBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            '“${state.quote.quoteText}',
-                            style: FontStyles.fontStyle26,
-                            textAlign: TextAlign.justify,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '“${state.quote.quoteText}“',
+                              style: FontStyles.fontStyle26,
+                              textAlign: TextAlign.justify,
+                            ),
                           ),
                           Text(
                             state.quote.author,

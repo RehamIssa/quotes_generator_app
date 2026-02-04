@@ -3,12 +3,15 @@ import 'package:quotes_generator_app/features/home/data/models/quote_model.dart'
 import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_state.dart';
 
 class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
-  FavoriteQuotesCubit() : super(FavoriteQuotesInitial());
+  FavoriteQuotesCubit() : super(FavoriteQuotesInitialState());
+
   List<QuoteModel> favoriteQuotesList = [];
+  List<QuoteModel> searchQuotesResults = [];
+
   void addQuote(QuoteModel quote) {
     favoriteQuotesList.add(quote);
-    emit(AddQuote());
-    emit(FavoriteQuotesLength());
+    emit(AddQuoteState());
+    emit(FavoriteQuotesLengthState());
   }
 
   List<QuoteModel> getFavoriteQuotes() {
@@ -22,9 +25,8 @@ class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
   void removeQuote(QuoteModel quote) {
     var quoteId = quote.id;
     favoriteQuotesList.removeWhere((quote) => quote.id == quoteId);
-    emit(RemoveQuote());
-    emit(FavoriteQuotesLength());
-  
+    emit(RemoveQuoteState());
+    emit(FavoriteQuotesLengthState());
   }
 
   void toggleQuote(QuoteModel quote) {
@@ -33,5 +35,21 @@ class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
     } else {
       addQuote(quote);
     }
+  }
+
+  List<QuoteModel> searchInFavoritesQuotesList(String searchTerm) {
+    if (searchTerm.isEmpty) {
+      return searchQuotesResults = [];
+    } else {
+      searchQuotesResults = favoriteQuotesList
+          .where(
+            (quote) => quote.quoteText.toLowerCase().contains(
+              searchTerm.toLowerCase(),
+            ),
+          )
+          .toList();
+    }
+    emit(SearchedQuoteState());
+    return searchQuotesResults;
   }
 }

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_cubit.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_state.dart';
+import 'package:quotes_generator_app/features/home/presentation/views/widgets/favorite_quote_card.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key});
+class CustomSearchBar extends StatefulWidget {
+  const CustomSearchBar({super.key});
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController textController = TextEditingController();
   bool showClearIcon = false;
   @override
@@ -42,6 +46,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         color: ColorStyles.primaryFontColor,
       ),
       controller: textController,
+      onChanged: (value) => BlocProvider.of<FavoriteQuotesCubit>(
+        context,
+      ).searchInFavoritesQuotesList(value),
       decoration: InputDecoration(
         hintText: 'Type Something Here To Search..',
         hintStyle: FontStyles.fontStyle22,
@@ -64,6 +71,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
               : null,
         ),
       ),
+    );
+  }
+}
+
+class SearchedQuotesList extends StatelessWidget {
+  const SearchedQuotesList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var quotes = BlocProvider.of<FavoriteQuotesCubit>(
+      context,
+    ).searchQuotesResults;
+    return BlocBuilder<FavoriteQuotesCubit, FavoriteQuotesState>(
+      builder: (context, state) {
+        return ListView.builder(
+          itemCount: quotes.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: FavoriteQuoteCard(quote: quotes[index]),
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -24,10 +24,13 @@ class FavoriteQuoteCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                '“${quote.quoteText}“',
-                style: FontStyles.fontStyle26,
-                textAlign: TextAlign.justify,
+              Align(
+                alignment: AlignmentGeometry.centerLeft,
+                child: Text(
+                  '“${quote.quoteText}“',
+                  style: FontStyles.fontStyle26,
+                  textAlign: TextAlign.justify,
+                ),
               ),
               Text(quote.author, style: FontStyles.fontStyle22),
               const Gap(20),
