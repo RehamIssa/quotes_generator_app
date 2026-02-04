@@ -7,4 +7,5 @@ class ApiKeys {
   static final statusMessage = 'statusMessage';
   static final quoteText = 'quote';
   static final author = 'author';
+  static final id = 'id';
 }

@@ -14,5 +14,6 @@ class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
     return favoriteQuotesList;
   }
 
+  
   void removeQuote(QuoteModel quote) {}
 }
