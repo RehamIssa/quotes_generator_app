@@ -56,7 +56,7 @@ class HomeViewBody extends StatelessWidget {
                           const Gap(20),
                           Row(
                             children: [
-                              GenerateRandomQuoteButton(),
+                              const GenerateRandomQuoteButton(),
                               Gap(10),
                               Expanded(
                                 child: AddQuoteToFavoriteQuotesButton(

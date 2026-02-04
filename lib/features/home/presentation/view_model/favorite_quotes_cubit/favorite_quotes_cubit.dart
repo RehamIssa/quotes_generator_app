@@ -8,12 +8,30 @@ class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
   void addQuote(QuoteModel quote) {
     favoriteQuotesList.add(quote);
     emit(AddQuote());
+    emit(FavoriteQuotesLength());
   }
 
   List<QuoteModel> getFavoriteQuotes() {
     return favoriteQuotesList;
   }
 
+  bool isFavoriteQuote(QuoteModel quote) {
+    return favoriteQuotesList.any((q) => q.id == quote.id);
+  }
+
+  void removeQuote(QuoteModel quote) {
+    var quoteId = quote.id;
+    favoriteQuotesList.removeWhere((quote) => quote.id == quoteId);
+    emit(RemoveQuote());
+    emit(FavoriteQuotesLength());
   
-  void removeQuote(QuoteModel quote) {}
+  }
+
+  void toggleQuote(QuoteModel quote) {
+    if (isFavoriteQuote(quote)) {
+      removeQuote(quote);
+    } else {
+      addQuote(quote);
+    }
+  }
 }

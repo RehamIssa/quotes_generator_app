@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quotes_generator_app/core/utils/color_styles.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_cubit.dart';
+import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_state.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/favorite_view.dart';
 
 class ViewFavoriteQuotesButton extends StatelessWidget {
@@ -38,25 +41,29 @@ class ViewFavoriteQuotesButton extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 45,
-                  right: -15,
-                  child: Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: ColorStyles.primaryFontColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        '2',
-                        style: FontStyles.fontStyle22.copyWith(
-                          color: Colors.white,
+                BlocBuilder<FavoriteQuotesCubit, FavoriteQuotesState>(
+                  builder: (context, state) {
+                    return Positioned(
+                      bottom: 45,
+                      right: -15,
+                      child: Container(
+                        height: 32,
+                        width: 32,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: ColorStyles.primaryFontColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${BlocProvider.of<FavoriteQuotesCubit>(context).favoriteQuotesList.length}',
+                            style: FontStyles.fontStyle22.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
