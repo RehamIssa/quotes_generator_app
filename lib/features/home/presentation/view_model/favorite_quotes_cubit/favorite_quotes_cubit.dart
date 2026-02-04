@@ -1,15 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:quotes_generator_app/features/home/data/models/quote_model.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/favorite_quotes_cubit/favorite_quotes_state.dart';
+
+final String _boxName = 'favoriteQuotesBox';
+var box = Hive.box<QuoteModel>(_boxName);
 
 class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
   FavoriteQuotesCubit() : super(FavoriteQuotesInitialState());
 
-  List<QuoteModel> favoriteQuotesList = [];
+  List<QuoteModel> favoriteQuotesList = box.values.toList();
   List<QuoteModel> searchQuotesResults = [];
 
-  void addQuote(QuoteModel quote) {
+  void addQuote(QuoteModel quote) async {
     favoriteQuotesList.add(quote);
+    await box.put(quote.id, quote);
     emit(AddQuoteState());
     emit(FavoriteQuotesLengthState());
   }
@@ -22,9 +27,10 @@ class FavoriteQuotesCubit extends Cubit<FavoriteQuotesState> {
     return favoriteQuotesList.any((q) => q.id == quote.id);
   }
 
-  void removeQuote(QuoteModel quote) {
+  void removeQuote(QuoteModel quote) async {
     var quoteId = quote.id;
     favoriteQuotesList.removeWhere((quote) => quote.id == quoteId);
+    await box.delete(quote.id);
     emit(RemoveQuoteState());
     emit(FavoriteQuotesLengthState());
   }
