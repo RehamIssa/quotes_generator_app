@@ -47,7 +47,7 @@ class QuotesGeneratorApp extends StatelessWidget {
             ThemeData.light().textTheme,
           ),
         ),
-        home: HomeView(),
+        home: const HomeView(),
       ),
     );
   }

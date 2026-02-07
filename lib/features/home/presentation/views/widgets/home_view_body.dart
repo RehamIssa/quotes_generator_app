@@ -5,6 +5,7 @@ import 'package:quotes_generator_app/core/utils/font_styles.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_cubit/get_quote_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_state.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/add_quote_to_favorite_quotes_button.dart';
+import 'package:quotes_generator_app/features/home/presentation/views/widgets/custome_shimmer.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/view_favorite_quotes_button.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/generate_random_quote_button.dart';
 
@@ -26,21 +27,20 @@ class HomeViewBody extends StatelessWidget {
           children: [
             const ViewFavoriteQuotesButton(),
             const Gap(10),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(6),
-                  ),
-                ),
-                child: state is GetQuoteLoading
-                    ? CircularProgressIndicator()
-                    : state is GetQuoteSuccess
-                    ? Column(
+              child: state is GetQuoteLoading
+                  ? CustomShimmer()
+                  : state is GetQuoteSuccess
+                  ? Container(
+                      padding: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(6),
+                        ),
+                      ),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -69,9 +69,9 @@ class HomeViewBody extends StatelessWidget {
                             ],
                           ),
                         ],
-                      )
-                    : Container(),
-              ),
+                      ),
+                    )
+                  : Container(),
             ),
           ],
         );
