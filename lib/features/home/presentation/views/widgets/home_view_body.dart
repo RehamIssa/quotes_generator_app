@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:quotes_generator_app/core/utils/font_styles.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_cubit/get_quote_cubit.dart';
 import 'package:quotes_generator_app/features/home/presentation/view_model/get_quote_state.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/add_quote_to_favorite_quotes_button.dart';
-import 'package:quotes_generator_app/features/home/presentation/views/widgets/custome_shimmer.dart';
+import 'package:quotes_generator_app/features/home/presentation/views/widgets/custom_shimmer.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/view_favorite_quotes_button.dart';
 import 'package:quotes_generator_app/features/home/presentation/views/widgets/generate_random_quote_button.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
+  final String assetName = 'assets/images/connection_lost.svg';
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetQuoteCubit, GetQuoteState>(
@@ -29,7 +31,33 @@ class HomeViewBody extends StatelessWidget {
             const Gap(10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: state is GetQuoteLoading
+              child: state is GetQuoteFailure
+                  ? Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.white,
+                      ),
+                      height: 250,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            assetName,
+                            semanticsLabel: 'Lost connection',
+                            width: 200,
+                          ),
+                          Gap(20),
+                          Text(
+                            'Oops Something went wrong, please check the internet connection',
+                            style: FontStyles.fontStyle22,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    )
+                  : state is GetQuoteLoading
                   ? CustomShimmer()
                   : state is GetQuoteSuccess
                   ? Container(

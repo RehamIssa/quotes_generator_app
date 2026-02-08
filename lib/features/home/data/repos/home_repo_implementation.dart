@@ -25,9 +25,5 @@ class HomeRepoImplementation implements HomeRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, QuoteModel>> getSearchedQuote(String endpoint) {
-    // TODO: implement getSearchedQuote
-    throw UnimplementedError();
-  }
+  
 }
